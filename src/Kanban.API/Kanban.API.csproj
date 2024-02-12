@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>be956466-9ac0-45ca-bee6-1395cf7fe45a</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\API.Dto\Kanban.API.Dto.csproj" />
+    <ProjectReference Include="..\Kanban.Application.Dto\Kanban.Application.Dto.csproj" />
+    <ProjectReference Include="..\Kanban.CrossCutting\Kanban.CrossCutting.csproj" />
+    <ProjectReference Include="..\Kanban.Repository\Kanban.Repository.csproj" />
+    <ProjectReference Include="..\Kanban.Services\Kanban.Application.csproj" />
+  </ItemGroup>
+
+</Project>
