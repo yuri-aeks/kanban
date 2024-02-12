@@ -1,5 +1,4 @@
-﻿using AutoFixture;
-using App = Kanban.Application.Dto.Models;
+﻿using App = Kanban.Application.Dto.Models;
 using Repo = Kanban.Repository.Dto.Models;
 
 namespace Kanban.Application.Tests.Services;

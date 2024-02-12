@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Api = Kanban.API.Dto.Card;
+﻿using Api = Kanban.API.Dto.Card;
 using App = Kanban.Application.Dto.Models;
 
 namespace Kanban.API.Mapper

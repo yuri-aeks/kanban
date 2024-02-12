@@ -7,10 +7,10 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
     public async Task GetById_ShouldReturnCard_WhenValidCardIsSearched()
     {
         // Act
-        var response = await this.cardWorker.GetCardById(Mocks.SampleMockOneId);
+        var response = await this.cardWorker.GetCardByIdAsync(Mocks.SampleMockOneId);
 
         // Assert
-        response._id.Should().Be(Mocks.SampleMockOneId);
+        response.Id.Should().Be(Mocks.SampleMockOneId);
     }
 
 
@@ -18,7 +18,7 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
     public async Task GetById_ShouldNotReturnCard_WhenInvalidCardIsSearched()
     {
         // Act
-        var response = await this.cardWorker.GetCardById(ObjectId.GenerateNewId().ToString());
+        var response = await this.cardWorker.GetCardByIdAsync(ObjectId.GenerateNewId().ToString());
 
         // Assert
         response.Should().BeNull();
@@ -28,12 +28,12 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
     public async Task GetAll_ShouldReturnCards_WhenThereAreCardsInDatabase()
     {
         // Act
-        var response = await this.cardWorker.GetAllCards();
+        var response = await this.cardWorker.GetAllCardsAsync();
 
         // Assert
         response.Should().NotBeNull();
         response.Count.Should().Be(3);
-        response.First(x => x._id == Mocks.SampleMockOneId).Should().NotBeNull();
+        response.First(x => x.Id == Mocks.SampleMockOneId).Should().NotBeNull();
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
         this.Dispose();
 
         // Act
-        var response = await this.cardWorker.GetAllCards();
+        var response = await this.cardWorker.GetAllCardsAsync();
 
         // Assert
         response.Should().NotBeNull();
@@ -57,11 +57,11 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
         var card = JsonConvert.DeserializeObject<CardDto>(Mocks.InsertMockObject);
 
         // Act
-        var response = await this.cardWorker.InsertCard(card);
+        var response = await this.cardWorker.InsertCardAsync(card);
 
         // Assert
         response.Should().NotBeNull();
-        response._id.Should().Be(card._id);
+        response.Id.Should().Be(card.Id);
     }
 
     [Fact]
@@ -69,15 +69,15 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
     {
         // Arrange
         var card = JsonConvert.DeserializeObject<CardDto>(Mocks.UpdateMockObject);
-        await this.cardWorker.InsertCard(card);
+        await this.cardWorker.InsertCardAsync(card);
         card.Name = "New Name";
 
         // Act
         var response = await this.cardWorker.UpdateCard(card);
-        var updatedCard = await this.cardWorker.GetCardById(card._id);
+        var updatedCard = await this.cardWorker.GetCardByIdAsync(card.Id);
         // Assert
         response.Should().NotBeNull();
-        response._id.Should().Be(card._id);
+        response.Id.Should().Be(card.Id);
         updatedCard.Name.Should().Be("New Name");
     }
 
@@ -116,14 +116,14 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
 
         // Act
         var response = await this.cardWorker.DeleteById(id);
-        var deletedCard = await this.cardWorker.GetCardById(id);
-        var remainingCards = await this.cardWorker.GetAllCards();
+        var deletedCard = await this.cardWorker.GetCardByIdAsync(id);
+        var remainingCards = await this.cardWorker.GetAllCardsAsync();
         // Assert
         response.Should().Be(true);
         deletedCard.Should().BeNull();
         remainingCards.Count.Should().Be(2);
         var card = JsonConvert.DeserializeObject<CardDto>(Mocks.SampleMockOne);
-        await this.cardWorker.InsertCard(card);
+        await this.cardWorker.InsertCardAsync(card);
     }
 
     [Fact]
@@ -134,8 +134,8 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
 
         // Act
         var response = await this.cardWorker.DeleteById(id);
-        var deletedCard = await this.cardWorker.GetCardById(id);
-        var remainingCards = await this.cardWorker.GetAllCards();
+        var deletedCard = await this.cardWorker.GetCardByIdAsync(id);
+        var remainingCards = await this.cardWorker.GetAllCardsAsync();
         // Assert
         response.Should().Be(false);
         deletedCard.Should().BeNull();

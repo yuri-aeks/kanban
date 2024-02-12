@@ -21,16 +21,16 @@ public class CardServiceTest
     {
         // Arrange
         var card = this.fixture.Create<CardDto>();
-        this.worker.Setup(x => x.GetCardById(card._id))
+        this.worker.Setup(x => x.GetCardByIdAsync(card.Id))
             .ReturnsAsync(card)
             .Verifiable();
 
         // Act
-        var result = await this.cardService.GetCardById(card._id);
+        var result = await this.cardService.GetCardByIdAsync(card.Id);
 
         // Assert
         result.Should().NotBeNull();
-        result.Id.Should().Be(card._id);
+        result.Id.Should().Be(card.Id);
         result.Name.Should().Be(card.Name); 
         result.Description.Should().Be(card.Description);
     }
@@ -40,13 +40,13 @@ public class CardServiceTest
     {
         // Arrange
         var card = this.fixture.Create<CardDto>();
-        this.worker.Setup(x => x.GetCardById(card._id))
+        this.worker.Setup(x => x.GetCardByIdAsync(card.Id))
             .ReturnsAsync(card)
             .Verifiable();
         var nonexistentCardId = "non-existent-card-id";
 
         // Act
-        var result = await this.cardService.GetCardById(nonexistentCardId);
+        var result = await this.cardService.GetCardByIdAsync(nonexistentCardId);
 
         // Assert
         result.Should().NotBeNull();
@@ -60,17 +60,17 @@ public class CardServiceTest
     {
         // Arrange
         var cards = this.fixture.Create<List<CardDto>>();
-        this.worker.Setup(x => x.GetAllCards())
+        this.worker.Setup(x => x.GetAllCardsAsync())
             .ReturnsAsync(cards)
             .Verifiable();
 
         // Act
-        var result = await this.cardService.GetCards();
+        var result = await this.cardService.GetAllCardsAsync();
 
         // Assert
         result.Should().NotBeNull();
         result.Count.Should().Be(3);
-        result.Select(r => r.Id).Should().Equal(cards.Select(c => c._id));
+        result.Select(r => r.Id).Should().Equal(cards.Select(c => c.Id));
         result.Select(r => r.Name).Should().Equal(cards.Select(c => c.Name));
         result.Select(r => r.Description).Should().Equal(cards.Select(c => c.Description));
     }
@@ -79,11 +79,11 @@ public class CardServiceTest
     public async void GetAllCards_ShouldNotReturnCards_WhenThereAreNoCardsInDatabase()
     {
         // Arrange
-        this.worker.Setup(x => x.GetAllCards())
+        this.worker.Setup(x => x.GetAllCardsAsync())
             .Verifiable();
 
         // Act
-        var result = await this.cardService.GetCards();
+        var result = await this.cardService.GetAllCardsAsync();
 
         // Assert
         result.Should().NotBeNull();

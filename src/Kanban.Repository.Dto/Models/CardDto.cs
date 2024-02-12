@@ -6,8 +6,8 @@ namespace Kanban.Repository.Dto.Models;
 public class CardDto
 {
     [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string _id { get; set; }
+    [BsonRepresentation(BsonType.String)]
+    public string Id { get; set; } = Guid.NewGuid().ToString();
 
     public string Name { get; set; } = string.Empty;
 

@@ -4,11 +4,11 @@ namespace Kanban.Repository.Interfaces
 {
     public interface IKanbanDatabaseWorker
     {
-        public Task<CardDto?> GetCardById(string id);
+        public Task<CardDto?> GetCardByIdAsync(string id);
         
-        public Task<List<CardDto>> GetAllCards();
+        public Task<List<CardDto>> GetAllCardsAsync();
 
-        public Task<CardDto> InsertCard(CardDto card);
+        public Task<CardDto> InsertCardAsync(CardDto card);
 
         public Task<CardDto?> UpdateCard(CardDto card);
 
