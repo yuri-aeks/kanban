@@ -1,7 +1,7 @@
-﻿using Kanban.Application.Dto.Mapper;
-using Kanban.Application.Dto.Models;
-using Kanban.Application.Interfaces;
+﻿using Kanban.Application.Interfaces;
 using Kanban.Repository.Interfaces;
+using Kanban.Model.ApplicationDto;
+using Kanban.Model.Mapper.Request.Auth;
 
 namespace Kanban.Application.Services;
 

@@ -167,7 +167,7 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
     public async Task Register_ShouldRegisterClient_WhenValidCredentialsAreSend()
     {
         // Arrange
-        var client = JsonConvert.DeserializeObject<ClientDto>(Mocks.NewClientMock);
+        var client = JsonConvert.DeserializeObject<Model.RepositoryDto.ClientDto>(Mocks.NewClientMock);
 
         // Act
         await this.authWorker.RegisterClient(client);

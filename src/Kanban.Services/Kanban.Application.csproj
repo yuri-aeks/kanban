@@ -10,6 +10,7 @@
     <ProjectReference Include="..\Kanban.Application.Dto\Kanban.Application.Dto.csproj" />
     <ProjectReference Include="..\Kanban.Repository.Dto\Kanban.Repository.Dto.csproj" />
     <ProjectReference Include="..\Kanban.Repository\Kanban.Repository.csproj" />
+	<ProjectReference Include="..\Kanban.Model\Kanban.Model.csproj" />  
   </ItemGroup>
 
 </Project>

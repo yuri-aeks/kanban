@@ -1,4 +1,4 @@
-﻿using Kanban.Repository.Dto.Models;
+﻿using Kanban.Model.RepositoryDto;
 
 namespace Kanban.Repository.Interfaces
 {

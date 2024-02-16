@@ -1,5 +1,5 @@
-﻿using App = Kanban.Application.Dto.Models;
-using Repo = Kanban.Repository.Dto.Models;
+﻿using App = Kanban.Model.ApplicationDto;
+using Repo = Kanban.Model.RepositoryDto;
 
 namespace Kanban.Application.Tests.Services;
 

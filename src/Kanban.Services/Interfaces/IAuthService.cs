@@ -1,4 +1,4 @@
-﻿using Kanban.Application.Dto.Models;
+﻿using Kanban.Model.ApplicationDto;
 
 namespace Kanban.Application.Interfaces;
 

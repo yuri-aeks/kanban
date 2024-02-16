@@ -1,5 +1,5 @@
 ﻿using Kanban.Repository.Interfaces;
-using Kanban.Repository.Dto.Models;
+using Kanban.Model.RepositoryDto;
 using Kanban.Repository.Settings;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
