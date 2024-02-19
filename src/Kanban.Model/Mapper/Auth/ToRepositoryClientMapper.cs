@@ -5,11 +5,11 @@ namespace Kanban.Model.Mapper.Auth;
 
 public static class ToRepositoryClientMapper
 {
-    public static Repo.ClientDto ToRepository(this App.ClientDto client)
+    public static Repo.Client ToRepository(this App.ClientDto client)
     {
-        return new Repo.ClientDto
+        return new Repo.Client
         {
-            _id = client.Id,
+            Id = client.Id,
             Secret = client.Secret,
         };
     }

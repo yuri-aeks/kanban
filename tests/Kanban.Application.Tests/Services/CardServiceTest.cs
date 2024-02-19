@@ -20,7 +20,7 @@ public class CardServiceTest
     public async void GetCardById_ShouldReturnCard_WhenThereIsACardInDatabase()
     {
         // Arrange
-        var card = this.fixture.Create<CardDto>();
+        var card = this.fixture.Create<Model.RepositoryDto.Card>();
         this.worker.Setup(x => x.GetCardByIdAsync(card.Id))
             .ReturnsAsync(card)
             .Verifiable();
@@ -39,7 +39,7 @@ public class CardServiceTest
     public async void GetCardById_ShouldNotReturnCard_WhenThereIsNoCardInDatabase()
     {
         // Arrange
-        var card = this.fixture.Create<CardDto>();
+        var card = this.fixture.Create<Model.RepositoryDto.Card>();
         this.worker.Setup(x => x.GetCardByIdAsync(card.Id))
             .ReturnsAsync(card)
             .Verifiable();
@@ -59,7 +59,7 @@ public class CardServiceTest
     public async void GetAllCards_ShouldReturnCards_WhenThereAreCardsInDatabase()
     {
         // Arrange
-        var cards = this.fixture.Create<List<CardDto>>();
+        var cards = this.fixture.Create<List<Model.RepositoryDto.Card>>();
         this.worker.Setup(x => x.GetAllCardsAsync())
             .ReturnsAsync(cards)
             .Verifiable();

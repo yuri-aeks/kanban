@@ -3,7 +3,7 @@ using MongoDB.Bson;
 
 namespace Kanban.Model.RepositoryDto;
 
-public class CardDto
+public class Card
 {
     [BsonId]
     [BsonRepresentation(BsonType.String)]

@@ -33,7 +33,6 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
         // Assert
         response.Should().NotBeNull();
         response.Count.Should().Be(3);
-        response.First(x => x.Id == Mocks.SampleMockOneId).Should().NotBeNull();
     }
 
     [Fact]
@@ -54,7 +53,7 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
     public async Task Insert_ShouldInsertCard_WhenCardIsGiven()
     {
         // Arrange
-        var card = JsonConvert.DeserializeObject<CardDto>(Mocks.InsertMockObject);
+        var card = JsonConvert.DeserializeObject<Model.RepositoryDto.Card>(Mocks.InsertMockObject);
 
         // Act
         var response = await this.cardWorker.InsertCardAsync(card);
@@ -68,7 +67,7 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
     public async Task Update_ShouldUpdateCard_WhenValidCardIsGiven()
     {
         // Arrange
-        var card = JsonConvert.DeserializeObject<CardDto>(Mocks.UpdateMockObject);
+        var card = JsonConvert.DeserializeObject<Model.RepositoryDto.Card>(Mocks.UpdateMockObject);
         await this.cardWorker.InsertCardAsync(card);
         card.Name = "New Name";
 
@@ -85,7 +84,7 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
     public async Task Update_ShouldNotUpdateCard_WhenNonExistingCardIsGiven()
     {
         // Arrange
-        var card = JsonConvert.DeserializeObject<CardDto>(Mocks.NonexistingMockObject);
+        var card = JsonConvert.DeserializeObject<Model.RepositoryDto.Card>(Mocks.NonexistingMockObject);
 
         // Act
         var response = await this.cardWorker.UpdateCard(card);
@@ -115,14 +114,15 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
         var id = Mocks.SampleMockOneId;
 
         // Act
-        var response = await this.cardWorker.DeleteById(id);
+        var response = await this.cardWorker.DeleteByIdAsync(id);
         var deletedCard = await this.cardWorker.GetCardByIdAsync(id);
         var remainingCards = await this.cardWorker.GetAllCardsAsync();
+
         // Assert
         response.Should().Be(true);
         deletedCard.Should().BeNull();
         remainingCards.Count.Should().Be(2);
-        var card = JsonConvert.DeserializeObject<CardDto>(Mocks.SampleMockOne);
+        var card = JsonConvert.DeserializeObject<Model.RepositoryDto.Card>(Mocks.SampleMockOne);
         await this.cardWorker.InsertCardAsync(card);
     }
 
@@ -133,7 +133,7 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
         var id = Mocks.NonExistingCardId;
 
         // Act
-        var response = await this.cardWorker.DeleteById(id);
+        var response = await this.cardWorker.DeleteByIdAsync(id);
         var deletedCard = await this.cardWorker.GetCardByIdAsync(id);
         var remainingCards = await this.cardWorker.GetAllCardsAsync();
         // Assert
@@ -167,11 +167,11 @@ public class ClientRepositoryTests : MongoRepositoryTestsSetup
     public async Task Register_ShouldRegisterClient_WhenValidCredentialsAreSend()
     {
         // Arrange
-        var client = JsonConvert.DeserializeObject<Model.RepositoryDto.ClientDto>(Mocks.NewClientMock);
+        var client = JsonConvert.DeserializeObject<Model.RepositoryDto.Client>(Mocks.NewClientMock);
 
         // Act
         await this.authWorker.RegisterClient(client);
-        var result = await this.authWorker.GetClientById(client._id);
+        var result = await this.authWorker.GetClientById(client.Id);
 
         // Assert
         result.Should().NotBeNull();

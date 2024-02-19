@@ -19,16 +19,16 @@ public class AuthDatabaseWorker : IAuthDatabaseWorker
         _mongoSettings = mongoSettings;
     }
 
-    public async Task<ClientDto?> GetClientById(string id)
+    public async Task<Client?> GetClientById(string id)
     {
         var filter = Builders<BsonDocument>.Filter.Eq(Constants.MongoDbId, id);
 
         var card = await _clientRepository.FindOne(_mongoSettings.KanbanHost.ClusterId, _mongoSettings.KanbanHost.Database, _mongoSettings.Collections.Clients, filter).ConfigureAwait(false);
 
-        return card == null ? null : BsonSerializer.Deserialize<ClientDto>(card.ToJson());
+        return card == null ? null : BsonSerializer.Deserialize<Client>(card.ToJson());
     }
 
-    public async Task RegisterClient(ClientDto client)
+    public async Task RegisterClient(Client client)
     {
         await _clientRepository.Insert(_mongoSettings.KanbanHost.ClusterId, _mongoSettings.KanbanHost.Database, _mongoSettings.Collections.Clients, client.ToBsonDocument());
     }

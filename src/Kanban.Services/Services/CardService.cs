@@ -1,5 +1,5 @@
-﻿using Kanban.Application.Dto.Mapper;
-using Kanban.Application.Dto.Models;
+﻿using Kanban.Model.Mapper.Card;
+using Kanban.Model.ControllerDto.Request.Card;
 using Kanban.Application.Interfaces;
 using Kanban.Repository.Interfaces;
 
@@ -16,18 +16,18 @@ public class CardService : ICardService
     public async Task<CardDto> GetCardByIdAsync(string id)
     {
         var card = await this._kanbanDatabaseWorker.GetCardByIdAsync(id);
-        return card is null ? new CardDto() : card.RepoToApp();
+        return card is null ? new CardDto() : card.ToController();
     }
 
     public async Task<List<CardDto>> GetAllCardsAsync()
     {
         var cards = await this._kanbanDatabaseWorker.GetAllCardsAsync();
-        return cards is null ? new List<CardDto>() : cards.RepoListToAppList();
+        return cards is null ? new List<CardDto>() : cards.ToControllerList();
     }
 
-    public async Task<CardDto> InsertCardAsync(CardDto card) 
+    public async Task<CardDto> InsertCardAsync(CardDto card)
     {
-        var insertedCard = await this._kanbanDatabaseWorker.InsertCardAsync(card.AppToRepo());
-        return insertedCard is null ? new CardDto() : insertedCard.RepoToApp();
+        var insertedCard = await this._kanbanDatabaseWorker.InsertCardAsync(card.ToRepository());
+        return insertedCard is null ? new CardDto() : insertedCard.ToController();
     }
 }

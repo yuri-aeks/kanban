@@ -41,25 +41,25 @@ public class MongoRepositoryTestsSetup : IDisposable
         this.Migrate();
     }
 
-    public void Migrate()
-    {
-        var cardCollection = _clients.ElementAt(_setting.KanbanHost.ClusterId).GetDatabase(_setting.KanbanHost.Database).GetCollection<CardDto>(_setting.Collections.Cards);
-        var cardOne = JsonConvert.DeserializeObject<CardDto>(Mocks.SampleMockOne);
-        var cardTwo = JsonConvert.DeserializeObject<CardDto>(Mocks.SampleMockTwo);
-        var cardThree = JsonConvert.DeserializeObject<CardDto>(Mocks.SampleMockThree);
-        var list = new List<CardDto> { cardOne, cardTwo, cardThree };
-        cardCollection.InsertMany(list);
-        var clientCollection = _clients.ElementAt(_setting.KanbanHost.ClusterId).GetDatabase(_setting.KanbanHost.Database).GetCollection<ClientDto>(_setting.Collections.Clients);
-        var client = JsonConvert.DeserializeObject<ClientDto>(Mocks.ClientMock);
-        clientCollection.InsertOne(client);
-    }
-
     public void Dispose()
     {
-        var collection = _clients.ElementAt(_setting.KanbanHost.ClusterId).GetDatabase(_setting.KanbanHost.Database).GetCollection<CardDto>(_setting.Collections.Cards);
-        collection.DeleteMany(Builders<CardDto>.Filter.Empty);
+        var collection = _clients.ElementAt(_setting.KanbanHost.ClusterId).GetDatabase(_setting.KanbanHost.Database).GetCollection<Model.RepositoryDto.Card>(_setting.Collections.Cards);
+        collection.DeleteMany(Builders<Model.RepositoryDto.Card>.Filter.Empty);
 
-        var clientCollection = _clients.ElementAt(_setting.KanbanHost.ClusterId).GetDatabase(_setting.KanbanHost.Database).GetCollection<ClientDto>(_setting.Collections.Clients);
-        clientCollection.DeleteMany(Builders<ClientDto>.Filter.Empty);
+        var clientCollection = _clients.ElementAt(_setting.KanbanHost.ClusterId).GetDatabase(_setting.KanbanHost.Database).GetCollection<Model.RepositoryDto.Client>(_setting.Collections.Clients);
+        clientCollection.DeleteMany(Builders<Model.RepositoryDto.Client>.Filter.Empty);
+    }
+
+    public void Migrate()
+    {
+        var cardCollection = _clients.ElementAt(_setting.KanbanHost.ClusterId).GetDatabase(_setting.KanbanHost.Database).GetCollection<Model.RepositoryDto.Card>(_setting.Collections.Cards);
+        var cardOne = JsonConvert.DeserializeObject<Model.RepositoryDto.Card>(Mocks.SampleMockOne);
+        var cardTwo = JsonConvert.DeserializeObject<Model.RepositoryDto.Card>(Mocks.SampleMockTwo);
+        var cardThree = JsonConvert.DeserializeObject<Model.RepositoryDto.Card>(Mocks.SampleMockThree);
+        var list = new List<Model.RepositoryDto.Card> { cardOne, cardTwo, cardThree };
+        cardCollection.InsertMany(list);
+        var clientCollection = _clients.ElementAt(_setting.KanbanHost.ClusterId).GetDatabase(_setting.KanbanHost.Database).GetCollection<Model.RepositoryDto.Client>(_setting.Collections.Clients);
+        var client = JsonConvert.DeserializeObject<Model.RepositoryDto.Client>(Mocks.ClientMock);
+        clientCollection.InsertOne(client);
     }
 }

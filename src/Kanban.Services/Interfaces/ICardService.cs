@@ -1,4 +1,4 @@
-﻿using Kanban.Application.Dto.Models;
+﻿using Kanban.Model.ControllerDto.Request.Card;
 
 namespace Kanban.Application.Interfaces;
 

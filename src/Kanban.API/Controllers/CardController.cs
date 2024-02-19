@@ -1,10 +1,9 @@
-using Kanban.API.Dto.Card;
-using Kanban.Application.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Kanban.API.Mapper;
-using Microsoft.AspNetCore.Authorization;
 using Kanban.API.Authentication;
-using Kanban.Application.Dto.Mapper;
+using Kanban.Application.Interfaces;
+using Kanban.Model.ControllerDto.Request.Card;
+using Kanban.Model.ControllerDto.Response;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Kanban.API.Controllers;
 
@@ -28,7 +27,7 @@ public class CardController : ControllerBase
         this._logger.LogInformation($"{nameof(CardController)}.{nameof(GetAllCards)}: Start");
         var cards = await _cardService.GetAllCardsAsync();
         this._logger.LogInformation($"{nameof(CardController)}.{nameof(GetAllCards)}: Result", new { cards });
-        return cards.ToPresentationResponse();
+        return new OkObjectResult (cards);
     }
 
     [HttpGet("{id}"), CustomAuthentication]
@@ -37,15 +36,15 @@ public class CardController : ControllerBase
         this._logger.LogInformation($"{nameof(CardController)}.{nameof(GetCard)}: Start", new { id });
         var card = await _cardService.GetCardByIdAsync(id);
         this._logger.LogInformation($"{nameof(CardController)}.{nameof(GetCard)}: Result", new { card });
-        return card.ToPresentationResponse();
+        return new OkObjectResult(card);
     }
 
     [HttpPost(), CustomAuthentication]
     public async Task<ActionResult<CardResponseDto>> InsertCard([FromBody] CardDto card)
     {
         this._logger.LogInformation($"{nameof(CardController)}.{nameof(GetCard)}: Start", new { card });
-        var insertedCard = await _cardService.InsertCardAsync(card.ApiToApp());
+        var insertedCard = await _cardService.InsertCardAsync(card);
         this._logger.LogInformation($"{nameof(CardController)}.{nameof(GetCard)}: Result", new { insertedCard });
-        return insertedCard.ToPresentationResponse();
+        return new OkObjectResult(insertedCard);
     }
 }
