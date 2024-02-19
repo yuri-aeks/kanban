@@ -1,7 +1,4 @@
-﻿
-using Kanban.Repository.Dto.Models;
-
-namespace Kanban.Application.Tests.Services;
+﻿namespace Kanban.Application.Tests.Services;
 
 public class CardServiceTest
 {
