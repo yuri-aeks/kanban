@@ -40,7 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - CrossCutting", "5 - Cro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kanban.CrossCutting", "src\Kanban.CrossCutting\Kanban.CrossCutting.csproj", "{7A7C34E6-02DC-448B-BA12-7E259E78FA70}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4- Models", "4- Models", "{1F2DFFEB-8326-4DE4-8691-6064FC92BF48}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Models", "4 - Models", "{1F2DFFEB-8326-4DE4-8691-6064FC92BF48}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kanban.Model", "src\Kanban.Model\Kanban.Model.csproj", "{204C4ABB-96B4-4C37-9F13-299DF1475078}"
 EndProject

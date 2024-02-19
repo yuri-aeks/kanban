@@ -1,7 +1,7 @@
 ﻿using App = Kanban.Model.ApplicationDto;
 using Api = Kanban.Model.ControllerDto.Request.Auth;
 
-namespace Kanban.Model.Mapper.Request.Auth;
+namespace Kanban.Model.Mapper.Auth;
 
 public static class ToApplicationClientMapper
 {

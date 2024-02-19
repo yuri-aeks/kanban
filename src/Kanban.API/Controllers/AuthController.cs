@@ -1,8 +1,8 @@
 ﻿using Kanban.Model.ControllerDto.Request.Auth;
-using Kanban.Model.Mapper.Request.Auth;
 using Kanban.Application.Interfaces;
 using Kanban.CrossCutting;
 using Microsoft.AspNetCore.Mvc;
+using Kanban.Model.Mapper.Auth;
 
 namespace Kanban.API.Controllers;
 

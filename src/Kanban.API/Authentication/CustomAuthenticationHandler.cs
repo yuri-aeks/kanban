@@ -1,5 +1,4 @@
 ﻿using Kanban.Model.ControllerDto.Request.Auth;
-using Kanban.Model.Mapper.Request.Auth;
 using Kanban.Application.Interfaces;
 using Kanban.CrossCutting;
 using Microsoft.AspNetCore.Authentication;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
+using Kanban.Model.Mapper.Auth;
 
 namespace Kanban.API.Authentication
 {

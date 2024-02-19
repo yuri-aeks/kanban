@@ -1,11 +1,11 @@
 ﻿using App = Kanban.Model.ApplicationDto;
 using Repo = Kanban.Model.RepositoryDto;
 
-namespace Kanban.Model.Mapper.Request.Auth;
+namespace Kanban.Model.Mapper.Auth;
 
-public static class ToDatabaseClientMapper 
+public static class ToRepositoryClientMapper
 {
-    public static Repo.ClientDto ToDatabase(this App.ClientDto client)
+    public static Repo.ClientDto ToRepository(this App.ClientDto client)
     {
         return new Repo.ClientDto
         {

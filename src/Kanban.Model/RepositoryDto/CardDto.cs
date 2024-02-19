@@ -1,12 +1,12 @@
-﻿//using MongoDB.Bson.Serialization.Attributes;
-//using MongoDB.Bson;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace Kanban.Model.RepositoryDto;
 
 public class CardDto
 {
-    //[BsonId]
-    //[BsonRepresentation(BsonType.String)]
+    [BsonId]
+    [BsonRepresentation(BsonType.String)]
     public string Id { get; set; } = Guid.NewGuid().ToString();
 
     public string Name { get; set; } = string.Empty;
