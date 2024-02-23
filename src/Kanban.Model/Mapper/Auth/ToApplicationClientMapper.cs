@@ -5,7 +5,7 @@ namespace Kanban.Model.Mapper.Auth;
 
 public static class ToApplicationClientMapper
 {
-    public static App.ClientDto ToApplication(this Api.ClientDto client)
+    public static App.ClientDto ToApplication(this Api.CreateClientRequestDto client)
     {
         return new App.ClientDto
         {

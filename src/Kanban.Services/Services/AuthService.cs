@@ -15,6 +15,7 @@ public class AuthService : IAuthService
 
     public async Task RegisterClient(ClientDto client)
     {
+
         await _databaseWorker.RegisterClient(client.ToRepository());
     }
 

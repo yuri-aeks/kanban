@@ -1,6 +1,5 @@
-﻿using Repo = Kanban.Model.RepositoryDto;
-
-using Api = Kanban.Model.ControllerDto.Response.Card;
+﻿using Api = Kanban.Model.ControllerDto.Response.Card;
+using Repo = Kanban.Model.RepositoryDto;
 
 namespace Kanban.Model.Mapper.Card;
 

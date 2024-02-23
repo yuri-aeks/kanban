@@ -5,7 +5,7 @@ namespace Kanban.Application.Interfaces;
 
 public interface ICardService
 {
-    public Task<List<GetCardResponseDto>> GetAllCardsAsync();
+    public Task<GetCardListResponseDto> GetAllCardsAsync();
 
     public Task<GetCardResponseDto> GetCardByIdAsync(string id);
 

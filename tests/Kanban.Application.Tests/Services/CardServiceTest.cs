@@ -66,10 +66,11 @@ public class CardServiceTest
 
         // Assert
         result.Should().NotBeNull();
-        result.Count.Should().Be(3);
-        result.Select(r => r.Id).Should().Equal(cards.Select(c => c.Id));
-        result.Select(r => r.Name).Should().Equal(cards.Select(c => c.Name));
-        result.Select(r => r.Description).Should().Equal(cards.Select(c => c.Description));
+        result.cards.Should().NotBeNull();
+        result.cards.Count.Should().Be(3);
+        result.cards.Select(r => r.Id).Should().Equal(cards.Select(c => c.Id));
+        result.cards.Select(r => r.Name).Should().Equal(cards.Select(c => c.Name));
+        result.cards.Select(r => r.Description).Should().Equal(cards.Select(c => c.Description));
     }
 
     [Fact]
@@ -84,6 +85,7 @@ public class CardServiceTest
 
         // Assert
         result.Should().NotBeNull();
-        result.Count.Should().Be(0);
+        result.cards.Should().NotBeNull();
+        result.cards.Count.Should().Be(0);
     }
 }

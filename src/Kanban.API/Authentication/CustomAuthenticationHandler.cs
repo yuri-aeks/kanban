@@ -40,7 +40,7 @@ namespace Kanban.API.Authentication
                 return Task.FromResult(AuthenticateResult.Fail("Invalid authorization header format"));
             }
 
-            var client = new ClientDto
+            var client = new CreateClientRequestDto
             {
                 Id = authSplit[0],
                 Secret = authSplit[1],

@@ -21,10 +21,10 @@ public class CardService : ICardService
         return card is null ? new GetCardResponseDto() : card.ToController();
     }
 
-    public async Task<List<GetCardResponseDto>> GetAllCardsAsync()
+    public async Task<GetCardListResponseDto> GetAllCardsAsync()
     {
         var cards = await this._kanbanDatabaseWorker.GetAllCardsAsync();
-        return cards is null ? new List<GetCardResponseDto>() : cards.ToControllerList();
+        return cards is null ? new GetCardListResponseDto() : new GetCardListResponseDto{ cards = cards.ToControllerList() };
     }
 
     public async Task<GetCardResponseDto> InsertCardAsync(GetCardRequestDto card)

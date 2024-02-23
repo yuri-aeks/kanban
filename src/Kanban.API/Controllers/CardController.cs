@@ -1,7 +1,7 @@
 using Kanban.API.Authentication;
 using Kanban.Application.Interfaces;
 using Kanban.Model.ControllerDto.Request.Card;
-using Kanban.Model.ControllerDto.Response;
+using Kanban.Model.ControllerDto.Response.Card;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,7 +31,7 @@ public class CardController : ControllerBase
     }
 
     [HttpGet("{id}"), CustomAuthentication]
-    public async Task<ActionResult<GetCardListResponseDto>> GetCard([FromRoute] string id)
+    public async Task<ActionResult<GetCardResponseDto>> GetCard([FromRoute] string id)
     {
         this._logger.LogInformation($"{nameof(CardController)}.{nameof(GetCard)}: Start", new { id });
         var card = await _cardService.GetCardByIdAsync(id);
@@ -40,7 +40,7 @@ public class CardController : ControllerBase
     }
 
     [HttpPost(), CustomAuthentication]
-    public async Task<ActionResult<GetCardListResponseDto>> InsertCard([FromBody] GetCardRequestDto card)
+    public async Task<ActionResult<GetCardResponseDto>> InsertCard([FromBody] GetCardRequestDto card)
     {
         this._logger.LogInformation($"{nameof(CardController)}.{nameof(GetCard)}: Start", new { card });
         var insertedCard = await _cardService.InsertCardAsync(card);
