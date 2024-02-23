@@ -22,7 +22,7 @@ public class CardController : ControllerBase
     }
 
     [HttpGet, CustomAuthentication]
-    public async Task<ActionResult<CardResponseDto>> GetAllCards()
+    public async Task<ActionResult<GetCardListResponseDto>> GetAllCards()
     {
         this._logger.LogInformation($"{nameof(CardController)}.{nameof(GetAllCards)}: Start");
         var cards = await _cardService.GetAllCardsAsync();
@@ -31,7 +31,7 @@ public class CardController : ControllerBase
     }
 
     [HttpGet("{id}"), CustomAuthentication]
-    public async Task<ActionResult<CardResponseDto>> GetCard([FromRoute] string id)
+    public async Task<ActionResult<GetCardListResponseDto>> GetCard([FromRoute] string id)
     {
         this._logger.LogInformation($"{nameof(CardController)}.{nameof(GetCard)}: Start", new { id });
         var card = await _cardService.GetCardByIdAsync(id);
@@ -40,7 +40,7 @@ public class CardController : ControllerBase
     }
 
     [HttpPost(), CustomAuthentication]
-    public async Task<ActionResult<CardResponseDto>> InsertCard([FromBody] CardDto card)
+    public async Task<ActionResult<GetCardListResponseDto>> InsertCard([FromBody] GetCardRequestDto card)
     {
         this._logger.LogInformation($"{nameof(CardController)}.{nameof(GetCard)}: Start", new { card });
         var insertedCard = await _cardService.InsertCardAsync(card);

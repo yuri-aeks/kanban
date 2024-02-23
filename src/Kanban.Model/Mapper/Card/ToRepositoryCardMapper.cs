@@ -1,11 +1,11 @@
-﻿using Api = Kanban.Model.ControllerDto.Request.Card;
+﻿using App = Kanban.Model.ApplicationDto;
 using Repo = Kanban.Model.RepositoryDto;
 
 namespace Kanban.Model.Mapper.Card
 {
     public static class ToRepositoryCardMapper
     {
-        public static Repo.Card ToRepository(this Api.CardDto card)
+        public static Repo.Card ToRepository(this App.CardDto card)
         {
             Repo.Card apiCard = new Repo.Card
             {

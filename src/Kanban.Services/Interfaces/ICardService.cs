@@ -1,12 +1,13 @@
-﻿using Kanban.Model.ControllerDto.Request.Card;
+﻿using Request = Kanban.Model.ControllerDto.Request.Card;
+using Response = Kanban.Model.ControllerDto.Response.Card;
 
 namespace Kanban.Application.Interfaces;
 
 public interface ICardService
 {
-    public Task<List<CardDto>> GetAllCardsAsync();
+    public Task<List<Response.GetCardResponseDto>> GetAllCardsAsync();
 
-    public Task<CardDto> GetCardByIdAsync(string id);
+    public Task<Response.GetCardResponseDto> GetCardByIdAsync(string id);
 
-    public Task<CardDto> InsertCardAsync(CardDto card);
+    public Task<Response.GetCardResponseDto> InsertCardAsync(Request.GetCardRequestDto card);
 }

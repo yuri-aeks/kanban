@@ -1,6 +1,6 @@
-﻿namespace Kanban.Model.ControllerDto.Request.Card;
+﻿namespace Kanban.Model.ControllerDto.Response.Card;
 
-public class CardDto
+public class GetCardResponseDto
 {
     public string Id { get; set; } = string.Empty;
 

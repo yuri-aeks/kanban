@@ -2,7 +2,7 @@
 
 namespace Kanban.Model.ControllerDto.Response;
 
-public class CardResponseDto
+public class GetCardListResponseDto
 {
     public List<CardDto> cards {  get; set; } = new List<CardDto>();
 }

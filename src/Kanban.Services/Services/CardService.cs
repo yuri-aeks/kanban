@@ -1,7 +1,9 @@
 ﻿using Kanban.Model.Mapper.Card;
-using Kanban.Model.ControllerDto.Request.Card;
 using Kanban.Application.Interfaces;
 using Kanban.Repository.Interfaces;
+
+using Request = Kanban.Model.ControllerDto.Request.Card;
+using Response = Kanban.Model.ControllerDto.Response.Card;
 
 namespace Kanban.Application.Services;
 public class CardService : ICardService
@@ -13,21 +15,22 @@ public class CardService : ICardService
         this._kanbanDatabaseWorker = kanbanDatabaseWorker;
     }
 
-    public async Task<CardDto> GetCardByIdAsync(string id)
+    public async Task<Response.GetCardResponseDto> GetCardByIdAsync(string id)
     {
         var card = await this._kanbanDatabaseWorker.GetCardByIdAsync(id);
-        return card is null ? new CardDto() : card.ToController();
+        return card is null ? new Response.GetCardResponseDto() : card.ToController();
     }
 
-    public async Task<List<CardDto>> GetAllCardsAsync()
+    public async Task<List<Response.GetCardResponseDto>> GetAllCardsAsync()
     {
         var cards = await this._kanbanDatabaseWorker.GetAllCardsAsync();
-        return cards is null ? new List<CardDto>() : cards.ToControllerList();
+        return cards is null ? new List<Response.GetCardResponseDto>() : cards.ToControllerList();
     }
 
-    public async Task<CardDto> InsertCardAsync(CardDto card)
+    public async Task<Response.GetCardResponseDto> InsertCardAsync(Request.GetCardRequestDto card)
     {
-        var insertedCard = await this._kanbanDatabaseWorker.InsertCardAsync(card.ToRepository());
-        return insertedCard is null ? new CardDto() : insertedCard.ToController();
+        var applicationCard = card.ToApplication();
+        var insertedCard = await this._kanbanDatabaseWorker.InsertCardAsync(applicationCard.ToRepository());
+        return insertedCard is null ? new Response.GetCardResponseDto() : insertedCard.ToController();
     }
 }
