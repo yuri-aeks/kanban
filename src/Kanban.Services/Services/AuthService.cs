@@ -1,7 +1,7 @@
-﻿using Kanban.Application.Dto.Mapper;
-using Kanban.Application.Dto.Models;
-using Kanban.Application.Interfaces;
+﻿using Kanban.Application.Interfaces;
 using Kanban.Repository.Interfaces;
+using Kanban.Model.ApplicationDto;
+using Kanban.Model.Mapper.Auth;
 
 namespace Kanban.Application.Services;
 
@@ -15,7 +15,8 @@ public class AuthService : IAuthService
 
     public async Task RegisterClient(ClientDto client)
     {
-        await _databaseWorker.RegisterClient(client.ToDatabase());
+
+        await _databaseWorker.RegisterClient(client.ToRepository());
     }
 
     public async Task<bool> Login(ClientDto client)

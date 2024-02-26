@@ -1,9 +1,8 @@
-﻿using Kanban.API.Dto.Auth;
-using Kanban.API.Mapper;
+﻿using Kanban.Model.ControllerDto.Request.Auth;
 using Kanban.Application.Interfaces;
 using Kanban.CrossCutting;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Kanban.Model.Mapper.Auth;
 
 namespace Kanban.API.Controllers;
 
@@ -18,7 +17,7 @@ public class AuthController
     }
 
     [HttpPost("register")]
-    public async Task<ActionResult> Register(ClientDto client)
+    public async Task<ActionResult> Register(CreateClientRequestDto client)
     {
         await _authService.RegisterClient(client.ToApplication());
         return new OkObjectResult(Constants.ClientRegitered);

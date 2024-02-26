@@ -1,6 +1,5 @@
-﻿using AutoFixture;
-using App = Kanban.Application.Dto.Models;
-using Repo = Kanban.Repository.Dto.Models;
+﻿using App = Kanban.Model.ApplicationDto;
+using Repo = Kanban.Model.RepositoryDto;
 
 namespace Kanban.Application.Tests.Services;
 
@@ -21,10 +20,10 @@ public class AuthServiceTest
     public async void Register_ShouldRegister_WhenCalled()
     {
         // Arrange
-        var repoClient = this.fixture.Create<Repo.ClientDto>();
+        var repoClient = this.fixture.Create<Repo.Client>();
         var appClient = new App.ClientDto
         {
-            Id = repoClient._id,
+            Id = repoClient.Id,
             Secret = repoClient.Secret,
         };
         this.worker.Setup(x => x.RegisterClient(repoClient))
@@ -41,10 +40,10 @@ public class AuthServiceTest
     public async void Login_ShouldLoginSuccessfully_WhenValidClientAndSecretIsGiven()
     {
         // Arrange
-        var repoClient = this.fixture.Create<Repo.ClientDto>();
+        var repoClient = this.fixture.Create<Repo.Client>();
         var appClient = new App.ClientDto
         {
-            Id = repoClient._id,
+            Id = repoClient.Id,
             Secret = repoClient.Secret,
         };
         this.worker.Setup(x => x.GetClientById(appClient.Id))
@@ -62,10 +61,10 @@ public class AuthServiceTest
     public async void Login_ShouldNotLoginSuccessfully_WhenInvalidClientAndSecretIsGiven()
     {
         // Arrange
-        var repoClient = this.fixture.Create<Repo.ClientDto>();
+        var repoClient = this.fixture.Create<Repo.Client>();
         var appClient = new App.ClientDto
         {
-            Id = repoClient._id,
+            Id = repoClient.Id,
             Secret = this.fixture.Create<string>(),
         };
         this.worker.Setup(x => x.GetClientById(appClient.Id))
@@ -83,13 +82,13 @@ public class AuthServiceTest
     public async void Login_ShouldNotLoginSuccessfully_WhenNonExistingClientIsGiven()
     {
         // Arrange
-        var repoClient = this.fixture.Create<Repo.ClientDto>();
+        var repoClient = this.fixture.Create<Repo.Client>();
         var appClient = new App.ClientDto
         {
-            Id = repoClient._id,
+            Id = repoClient.Id,
             Secret = this.fixture.Create<string>(),
         };
-        this.worker.Setup(x => x.GetClientById(repoClient._id))
+        this.worker.Setup(x => x.GetClientById(repoClient.Id))
             .Verifiable();
 
         // Act

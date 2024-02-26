@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
-namespace Kanban.Repository.Dto.Models;
+namespace Kanban.Model.RepositoryDto;
 
-public class CardDto
+public class Card
 {
     [BsonId]
     [BsonRepresentation(BsonType.String)]

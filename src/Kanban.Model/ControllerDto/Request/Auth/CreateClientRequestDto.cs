@@ -1,6 +1,6 @@
-﻿namespace Kanban.Application.Dto.Models;
+﻿namespace Kanban.Model.ControllerDto.Request.Auth;
 
-public class ClientDto
+public class CreateClientRequestDto
 {
     public string Id { get; set; } = string.Empty;
 

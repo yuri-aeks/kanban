@@ -1,5 +1,5 @@
 ﻿using Kanban.Repository.Interfaces;
-using Kanban.Repository.Dto.Models;
+using Kanban.Model.RepositoryDto;
 using Kanban.Repository.Settings;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -19,31 +19,31 @@ public class KanbanDatabaseWorker : IKanbanDatabaseWorker
         this._mongoSettings = mongoSettings;
     }
 
-    public async Task<CardDto?> GetCardById(string id)
+    public async Task<Card?> GetCardByIdAsync(string id)
     {
-        var filter = Builders<BsonDocument>.Filter.Eq(Constants.MongoDbId, ObjectId.Parse(id));
+        var filter = Builders<BsonDocument>.Filter.Eq(Constants.MongoDbId, id);
 
         var card = await _cardRepository.FindOne(_mongoSettings.KanbanHost.ClusterId, _mongoSettings.KanbanHost.Database, _mongoSettings.Collections.Cards, filter).ConfigureAwait(false);
 
-        return card == null ? null : BsonSerializer.Deserialize<CardDto>(card.ToJson());
+        return card == null ? null : BsonSerializer.Deserialize<Card>(card.ToJson());
     }
 
-    public async Task<List<CardDto>> GetAllCards()
+    public async Task<List<Card>> GetAllCardsAsync()
     {
         var cards = await _cardRepository.FindMany(_mongoSettings.KanbanHost.ClusterId, _mongoSettings.KanbanHost.Database, _mongoSettings.Collections.Cards).ConfigureAwait(false);
 
-        return BsonSerializer.Deserialize<List<CardDto>>(cards.ToJson());
+        return BsonSerializer.Deserialize<List<Card>>(cards.ToJson());
     }
 
-    public async Task<CardDto> InsertCard(CardDto card)
+    public async Task<Card> InsertCardAsync(Card card)
     {
         await _cardRepository.Insert(_mongoSettings.KanbanHost.ClusterId, _mongoSettings.KanbanHost.Database, _mongoSettings.Collections.Cards, card.ToBsonDocument());
         return card;
     }
 
-    public async Task<CardDto?> UpdateCard(CardDto card)
+    public async Task<Card?> UpdateCard(Card card)
     {
-        var filter = Builders<BsonDocument>.Filter.Eq(Constants.MongoDbId, ObjectId.Parse(card._id));
+        var filter = Builders<BsonDocument>.Filter.Eq(Constants.MongoDbId, card.Id);
         var update = Builders<BsonDocument>.Update
                     .Set(Constants.Name, card.Name)
                     .Set(Constants.Description, card.Description);
@@ -57,7 +57,7 @@ public class KanbanDatabaseWorker : IKanbanDatabaseWorker
 
     public async Task<long> UpdateManyDescriptions(List<string> ids, string description)
     {
-        var filter = Builders<BsonDocument>.Filter.In(Constants.MongoDbId, ids.ConvertAll(x => ObjectId.Parse(x)));
+        var filter = Builders<BsonDocument>.Filter.In(Constants.MongoDbId, ids.ConvertAll(x => x));
         var update = Builders<BsonDocument>.Update
                     .Set(Constants.Description, description);
         var options = new UpdateOptions
@@ -68,9 +68,9 @@ public class KanbanDatabaseWorker : IKanbanDatabaseWorker
         return response.ModifiedCount;
     }
 
-    public async Task<bool> DeleteById(string id)
+    public async Task<bool> DeleteByIdAsync(string id)
     {
-        var filter = Builders<BsonDocument>.Filter.Eq(Constants.MongoDbId, ObjectId.Parse(id));
+        var filter = Builders<BsonDocument>.Filter.Eq(Constants.MongoDbId, id);
         var result = await _cardRepository.Delete(_mongoSettings.KanbanHost.ClusterId, _mongoSettings.KanbanHost.Database, _mongoSettings.Collections.Cards, filter);
         return result.DeletedCount == 1;
     }

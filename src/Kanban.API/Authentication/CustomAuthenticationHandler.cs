@@ -1,5 +1,4 @@
-﻿using Kanban.API.Dto.Auth;
-using Kanban.API.Mapper;
+﻿using Kanban.Model.ControllerDto.Request.Auth;
 using Kanban.Application.Interfaces;
 using Kanban.CrossCutting;
 using Microsoft.AspNetCore.Authentication;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
+using Kanban.Model.Mapper.Auth;
 
 namespace Kanban.API.Authentication
 {
@@ -40,7 +40,7 @@ namespace Kanban.API.Authentication
                 return Task.FromResult(AuthenticateResult.Fail("Invalid authorization header format"));
             }
 
-            var client = new ClientDto
+            var client = new CreateClientRequestDto
             {
                 Id = authSplit[0],
                 Secret = authSplit[1],
