@@ -4,11 +4,11 @@ using Kanban.Model.Mapper.Auth;
 
 namespace Kanban.Model.Tests.Mapper.Client
 {
-    public class ToApplicationClientMapperTests
+    public class ToRepositoryClientMapperTests
     {
         private readonly Fixture fixture;
 
-        public ToApplicationClientMapperTests()
+        public ToRepositoryClientMapperTests()
         {
             fixture = new Fixture();
         }

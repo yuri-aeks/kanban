@@ -1,4 +1,8 @@
-﻿namespace Kanban.Application.Tests.Services;
+﻿using Kanban.Model.ControllerDto.Request.Card;
+using Kanban.Model.Mapper.Card;
+using Kanban.Model.RepositoryDto;
+
+namespace Kanban.Application.Tests.Services;
 
 public class CardServiceTest
 {
@@ -87,5 +91,29 @@ public class CardServiceTest
         result.Should().NotBeNull();
         result.cards.Should().NotBeNull();
         result.cards.Count.Should().Be(0);
+    }
+
+    [Fact]
+    public async void InsertCard_ShouldInsertCardSuccessfully_WhenValidInsertCardRequestIsReceived()
+    {
+        // Arrange
+        var newCard = this.fixture.Create<GetCardRequestDto>();
+        
+        this.worker.Setup(s => s.InsertCardAsync(It.IsAny<Card>()))
+            .ReturnsAsync(newCard.ToApplication().ToRepository())
+            .Verifiable();
+
+        // Act
+        var response = await this.cardService.InsertCardAsync(newCard);
+
+        // Assert
+        this.worker.Verify();
+
+        response.Should().NotBeNull();
+        response.Id.Should().NotBeNull();
+        response.Name.Should().NotBeNull();
+        response.Name.Should().BeEquivalentTo(newCard.Name);
+        response.Description.Should().NotBeNull();
+        response.Description.Should().BeEquivalentTo(newCard.Description);
     }
 }
